@@ -12312,7 +12312,7 @@ namespace Tqdev\PhpCrudApi {
     use Tqdev\PhpCrudApi\RequestFactory;
     use Tqdev\PhpCrudApi\ResponseUtils;
 
-    require_once ("../config.php");
+    require_once("../config.php");
     $config = new Config([
         'driver' => $driver,
         'address' => $address,
