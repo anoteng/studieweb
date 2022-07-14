@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-
+    {{ this.$t("message.hello") }}
   </div>
 </template>
 
