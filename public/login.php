@@ -112,6 +112,22 @@ class access{
         }
     }
 
+    public function checkMagicLink($magic){
+        $sql = "DELETE FROM magic_links WHERE timestamp<DATE_SUB(NOW(), INTERVAL 60 MINUTE)";
+        $this->sql->deleteQuery($sql);
+        $sql = "SELECT * FROM magic_links WHERE magic = ?";
+        $result = $this->sql->selectQuery($sql, 's', $magic);
+        if(empty($result)){
+            return false;
+        }else{
+            $plopenr = $result[0]['plopenr'];
+            $sql = "SELECT login_token FROM users WHERE plopenr = ?";
+            $result = $this->sql->selectQuery($sql, 'i', $plopenr);
+            return json_encode($result)
+        }
+
+    }
+
     private function getUserInfo($email){
         $sql = "SELECT * FROM users where email = ?";
         $this->userinfo = $this->sql->selectQuery($sql, 's', $email);
@@ -160,8 +176,6 @@ $access = new access;
 if(isset($_GET['login'])){
     $access->sendMagicLink($_GET['login']);
 }
-if(isset($_GET['token'])){
-    $result = $access->checkLoggedInState($_GET['token']);
-    setcookie('logintoken', $result[0]['login_token'], time()+60*60*24*365, '/');
-    header("Location: /");
+if(isset($_GET['magic'])){
+    echo($access->checkMagicLink($_GET['magic']);
 }
