@@ -12320,7 +12320,10 @@ namespace Tqdev\PhpCrudApi {
         'username' => $username,
         'password' => $password,
         'database' => $database,
-        'debug' => $debug
+        'debug' => $debug,
+        'middlewares' => 'apiKeyDbAuth,authorization',
+        'apiKeyDbAuth.usersTable' => 'users',
+        'apiKeyDbAuth.apiKeyColumn' => 'login_token'
     ]);
     $request = RequestFactory::fromGlobals();
     $api = new Api($config);
