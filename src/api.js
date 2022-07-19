@@ -3,6 +3,7 @@ const login = {
     checkApiKey(key) {
 
         fetch(apiURL + 'api.php/users?filter=login_token,eq,' + key, {
+            mode: 'cors',
             headers: {
                 'X-API-Key': key
             }
