@@ -1,7 +1,9 @@
 <?php
 define('SCRIPT_URL', 'https://org.ntnu.no/ibm/studier');
 header("Access-Control-Allow-Origin: *");
-
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 class sql{
     public $con;
     public $resultArray = [];
