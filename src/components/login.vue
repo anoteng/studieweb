@@ -1,11 +1,19 @@
-<template>
+<template v-if="MagicLink = null">
+  <div class="container">
+    <form class="form-control">
+      <label> {{ this.$t("login.magic_link") }}
+        <input type="text">
+      </label>
+      <button @click="orderLink">Send</button>
+    </form>
 
+  </div>
 </template>
 
 <script>
-import { login } from "api.js"
+import { login } from "../api.js"
 export default {
-  name: "Login",
+  name: "LoginComp",
   data() {
     return {
       loggedInStatus: null,
@@ -23,8 +31,12 @@ export default {
         return false
       }
     },
+    orderLink: function(event){
+      event.preventDefault()
+      console.log(event.target.form[0].value)
+    },
     checkApiKey(key){
-
+      console.log(key)
     }
   }
 }

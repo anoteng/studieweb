@@ -3,13 +3,19 @@ const messages = {
         message: {
             hello: 'hello world'
         },
-        language: 'Language'
+        language: 'Language',
+        login: {
+            magic_link: "Email address"
+        }
     },
     no: {
         message: {
             hello: 'Hei verden!'
         },
-        language: 'Språk'
+        language: 'Språk',
+        login: {
+            magic_link: "e-postadresse"
+        }
 
     }
 }
