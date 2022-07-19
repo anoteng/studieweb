@@ -1,12 +1,20 @@
-<template v-if="MagicLink = null">
-  <div class="container">
+<template >
+  <div class="container" v-if="AskForMagicLink">
     <form class="form-control">
       <label> {{ this.$t("login.magic_link") }}
-        <input type="text">
+        <input type="text" v-model="email">
       </label>
       <button @click="orderLink">Send</button>
     </form>
 
+  </div>
+  <div class="container" v-else>
+    <form class="form-control">
+      <label> {{ this.$t("login.token") }}
+        <input type="text" v-model="MagicLink">
+      </label>
+      <button @click="checkMagicLink">Send</button>
+    </form>
   </div>
 </template>
 
@@ -20,7 +28,9 @@ export default {
       userId: null,
       AccessKey: null,
       MagicLink: null,
-      UserRole: null
+      AskForMagicLink: true,
+      UserRole: null,
+      email: null
     }
   },
   methods: {
@@ -31,10 +41,21 @@ export default {
         return false
       }
     },
+    checkMagicLink: function(event){
+      event.preventDefault()
+      this.AccessKey = login.exchangeLinkForKey(this.MagicLink)
+
+    },
     orderLink: function(event){
       event.preventDefault()
-      console.log(event.target.form[0].value)
-      login.orderMagicLink(event.target.form[0].value)
+      login.orderMagicLink(this.email)
+          .then(result => {
+            console.log(result)
+            this.AskForMagicLink = false
+          })
+          .catch(err => {
+            console.log(err)
+          })
     },
     checkApiKey(key){
       console.log(key)

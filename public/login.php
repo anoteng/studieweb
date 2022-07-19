@@ -118,7 +118,7 @@ class access{
 
     public function checkMagicLink($magic){
         $sql = "DELETE FROM magic_links WHERE timestamp<DATE_SUB(NOW(), INTERVAL 60 MINUTE)";
-        $this->sql->deleteQuery($sql);
+        $this->sql->deleteQuery($sql, null, null);
         $sql = "SELECT * FROM magic_links WHERE magic = ?";
         $result = $this->sql->selectQuery($sql, 's', $magic);
         if(empty($result)){
@@ -168,9 +168,9 @@ class access{
         $sender .= "MIME-Version: 1.0\r\n";
         $sender .= "Content-Type: text/html; charset=UTF-8\r\n";
         $body = '<html><body>English below <br />' .
-            '<p>For å logge inn i OppgaveWeb, lim inn token:' . $this->token .
+            '<p>For å logge inn i OppgaveWeb, lim inn token: ' . $this->token . '<br>'.
             'Token er gyldig i 60 minutter</p>' .
-            '<p>To log on to the OppgaveWeb, paste token' . $this->token .
+            '<p>To log on to the OppgaveWeb, paste token: ' . $this->token .'<br>'.
             'The token is valid for 60 minutes</p></body><html>';
         $this->email($email, $topic, $body, $sender);
         return(true);

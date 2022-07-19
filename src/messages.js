@@ -5,7 +5,8 @@ const messages = {
         },
         language: 'Language',
         login: {
-            magic_link: "Email address"
+            magic_link: "Email address:",
+            token: "Token from email:"
         }
     },
     no: {
@@ -14,7 +15,8 @@ const messages = {
         },
         language: 'Språk',
         login: {
-            magic_link: "e-postadresse"
+            magic_link: "e-postadresse:",
+            token: "Token fra epost:"
         }
 
     }
