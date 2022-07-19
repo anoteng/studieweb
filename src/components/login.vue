@@ -34,6 +34,7 @@ export default {
     orderLink: function(event){
       event.preventDefault()
       console.log(event.target.form[0].value)
+      login.orderMagicLink(event.target.form[0].value)
     },
     checkApiKey(key){
       console.log(key)

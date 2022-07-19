@@ -1,5 +1,6 @@
 <?php
 define('SCRIPT_URL', 'https://org.ntnu.no/ibm/studier');
+header("Access-Control-Allow-Origin: *");
 
 class sql{
     public $con;

@@ -14,6 +14,10 @@ const login = {
         fetch(apiURL + 'login.php?magic='+link)
             .then(response =>response.json())
             .then(data => console.log(data))
+    },
+    orderMagicLink(email){
+      fetch(apiURL + 'login.php?email='+ email)
+          .then(response => response.json)
     }
 }
 
