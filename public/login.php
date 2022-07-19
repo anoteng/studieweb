@@ -4,6 +4,7 @@ header("Access-Control-Allow-Origin: *");
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+
 class sql{
     public $con;
     public $resultArray = [];
@@ -175,7 +176,7 @@ class access{
     }
 }
 require_once ('config.php');
-$access = new access;
+$access = new access($address, $username, $password, $database);
 if(isset($_GET['login'])){
     $access->sendMagicLink($_GET['login']);
 }
