@@ -159,20 +159,21 @@ class access{
     public function sendMagicLink($email){
         $this->create_token();
         $this->getUserInfo($email);
-        $sql = "DELETE FROM magic_links WHERE 'plopenr' = ?";
+        $sql = "DELETE FROM magic_links WHERE plopenr = ?";
         $this->sql->deleteQuery($sql, 'i', $this->userinfo[0]['plopenr']);
-        $sql = "INSERT INTO magic_links ('plopenr', 'magic') VALUES (?, ?)";
+        $sql = "INSERT INTO magic_links (plopenr, magic) VALUES (?, ?)";
         $this->sql->insertQuery($sql, 'is', $this->userinfo[0]['plopenr'], $this->token);
         $topic = "OppgaveWeb login";
         $sender = "noreply@ibm.ntnu.no\r\n";
         $sender .= "MIME-Version: 1.0\r\n";
         $sender .= "Content-Type: text/html; charset=UTF-8\r\n";
         $body = '<html><body>English below <br />' .
-            '<p>For å logge inn i OppgaveWeb, bruk <a href="' . SCRIPT_URL . '/login.php?token=' . $this->token . '">denne lenken</a><br />' .
-            'Lenken er gyldig i 60 minutter</p>' .
-            '<p>To log on to the OppgaveWeb, use <a href="' . SCRIPT_URL . '/login.php?token=' . $this->token . '">this link</a><br />' .
-            'The link is valid for 60 minutes</p></body><html>';
+            '<p>For å logge inn i OppgaveWeb, lim inn token:' . $this->token .
+            'Token er gyldig i 60 minutter</p>' .
+            '<p>To log on to the OppgaveWeb, paste token' . $this->token .
+            'The token is valid for 60 minutes</p></body><html>';
         $this->email($email, $topic, $body, $sender);
+        return(true);
     }
 }
 require_once ('config.php');
@@ -184,5 +185,5 @@ if(isset($_GET['magic'])){
     echo($access->checkMagicLink($_GET['magic']));
 }
 if(isset($_GET['email'])){
-    $access->sendMagicLink($_GET['email']);
+    echo(json_encode($access->sendMagicLink($_GET['email'])));
 }
