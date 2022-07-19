@@ -6,7 +6,8 @@ const login = {
             mode: 'cors',
             headers: {
                 'X-API-Key': key,
-                credentials: 'include'
+                credentials: 'include',
+                referrerPolicy: 'no-referrer'
             }
         })
             .then(response => response.json())

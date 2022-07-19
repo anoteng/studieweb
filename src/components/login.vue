@@ -20,6 +20,9 @@
                >
       </label>
       <button @click="checkMagicLink">Send</button>
+      <label> {{ this.$t("login.have_token") }}
+        <input type="checkbox" @input="skipOrder" checked>
+      </label>
     </form>
   </div>
 </template>
@@ -48,7 +51,7 @@ export default {
       }
     },
     skipOrder: function(){
-      this.AskForMagicLink = false
+      this.AskForMagicLink = !this.AskForMagicLink
     },
     checkMagicLink: function(event){
       event.preventDefault()
