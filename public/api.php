@@ -12324,7 +12324,7 @@ namespace Tqdev\PhpCrudApi {
         'middlewares' => 'apiKeyDbAuth,authorization,cors',
         'apiKeyDbAuth.usersTable' => 'users',
         'apiKeyDbAuth.apiKeyColumn' => 'login_token',
-        'cors.allowedOrigins' => '*'
+        'cors.allowedOrigins' => 'localhost, org.ntnu.no'
     ]);
     $request = RequestFactory::fromGlobals();
     $api = new Api($config);

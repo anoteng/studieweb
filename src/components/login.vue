@@ -5,13 +5,19 @@
         <input type="text" v-model="email">
       </label>
       <button @click="orderLink">Send</button>
+      <label> {{ this.$t("login.have_token") }}
+        <input type="checkbox" @input="skipOrder">
+      </label>
+
     </form>
 
   </div>
   <div class="container" v-else>
     <form class="form-control">
       <label> {{ this.$t("login.token") }}
-        <input type="text" v-model="MagicLink">
+        <input type="text"
+               v-model="MagicLink"
+               >
       </label>
       <button @click="checkMagicLink">Send</button>
     </form>
@@ -40,6 +46,9 @@ export default {
       }else{
         return false
       }
+    },
+    skipOrder: function(){
+      this.AskForMagicLink = false
     },
     checkMagicLink: function(event){
       event.preventDefault()

@@ -6,7 +6,8 @@ const messages = {
         language: 'Language',
         login: {
             magic_link: "Email address:",
-            token: "Token from email:"
+            token: "Token from email:",
+            have_token: "I already have a token from email:"
         }
     },
     no: {
@@ -16,7 +17,8 @@ const messages = {
         language: 'Språk',
         login: {
             magic_link: "e-postadresse:",
-            token: "Token fra epost:"
+            token: "Token fra epost:",
+            have_token: "Jeg har allerede token fra epost:"
         }
 
     }

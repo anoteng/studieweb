@@ -5,7 +5,8 @@ const login = {
         fetch(apiURL + 'api.php/users?filter=login_token,eq,' + key, {
             mode: 'cors',
             headers: {
-                'X-API-Key': key
+                'X-API-Key': key,
+                credentials: 'include'
             }
         })
             .then(response => response.json())
