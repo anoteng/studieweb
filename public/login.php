@@ -45,7 +45,7 @@ class sql{
         return $this->resultArray;
     }
 
-    public function deleteQuery($sql, $prepType = false, ...$prepVars = false){
+    public function deleteQuery($sql, $prepType = false, ...$prepVars){
         if(!$stmt = $this->con->prepare($sql)){
             die(var_dump($this->con->error_list));
         }
