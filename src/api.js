@@ -2,12 +2,10 @@ const apiURL = 'https://org.ntnu.no/ibm/studier/'
 const login = {
     checkApiKey(key) {
 
-        fetch(apiURL + 'api.php/users?filter=login_token,eq,' + key, {
-            mode: 'cors',
+        fetch(apiURL + 'api.php/status/ping', {
+            credentials: "include",
             headers: {
                 'X-API-Key': key,
-                credentials: 'include',
-                referrerPolicy: 'no-referrer'
             }
         })
             .then(response => response.json())
