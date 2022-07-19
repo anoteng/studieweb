@@ -11,12 +11,16 @@ const login = {
             .then(data => console.log(data))
     },
     exchangeLinkForKey(link){
-        fetch(apiURL + 'login.php?magic='+link)
-            .then(response =>response.json())
-            .then(data => {
-                console.log(data)
-                return data
-            })
+        return new Promise(function (resolve,reject){
+            fetch(apiURL + 'login.php?magic='+link)
+                .then(response =>response.json())
+                .then(data => {
+                    console.log(data)
+                    resolve(data)
+                })
+                .catch(err => reject(err))
+        })
+
     },
     orderMagicLink(email){
         const promise = new Promise(function (resolve, reject){

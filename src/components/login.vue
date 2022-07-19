@@ -43,7 +43,12 @@ export default {
     },
     checkMagicLink: function(event){
       event.preventDefault()
-      this.AccessKey = login.exchangeLinkForKey(this.MagicLink)
+      login.exchangeLinkForKey(this.MagicLink)
+          .then(response => {
+            console.log(response)
+            this.AccessKey = response[1].login_token
+            this.checkApiKey(this.AccessKey)
+          })
 
     },
     orderLink: function(event){
@@ -59,6 +64,7 @@ export default {
     },
     checkApiKey(key){
       console.log(key)
+      login.checkApiKey(key)
     }
   }
 }
