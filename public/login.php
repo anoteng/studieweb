@@ -180,8 +180,8 @@ if(isset($_GET['login'])){
     $access->sendMagicLink($_GET['login']);
 }
 if(isset($_GET['magic'])){
-    echo($access->checkMagicLink($_GET['magic']);
+    echo($access->checkMagicLink($_GET['magic']));
 }
 if(isset($_GET['email'])){
-    $access->sendMagicLink($_GET['email'])
+    $access->sendMagicLink($_GET['email']);
 }
