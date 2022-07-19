@@ -11,7 +11,9 @@ const login = {
             .then(data => console.log(data))
     },
     exchangeLinkForKey(link){
-
+        fetch(apiURL + 'login.php?magic='+link)
+            .then(response =>response.json())
+            .then(data => console.log(data))
     }
 }
 
