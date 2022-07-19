@@ -49,16 +49,18 @@ class sql{
         if(!$stmt = $this->con->prepare($sql)){
             die(var_dump($this->con->error_list));
         }
-
-        if(is_array($prepVars)){
-            if(!$stmt->bind_param($prepType, ...$prepVars)){
-                die($stmt->error);
-            }
-        }else{
-            if(!$stmt->bind_param($prepType, $prepVars)){
-                die($stmt->error);
-            }
+        if($prepType){
+            if(is_array($prepVars)){
+                        if(!$stmt->bind_param($prepType, ...$prepVars)){
+                            die($stmt->error);
+                        }
+                    }else{
+                        if(!$stmt->bind_param($prepType, $prepVars)){
+                            die($stmt->error);
+                        }
+                    }
         }
+
         $exec = $stmt->execute();
         if ( false === $exec ) {
             error_log('mysqli execute() failed: ');
