@@ -45,7 +45,7 @@ class sql{
         return $this->resultArray;
     }
 
-    public function deleteQuery($sql, $prepType, ...$prepVars){
+    public function deleteQuery($sql, $prepType = false, ...$prepVars = false){
         if(!$stmt = $this->con->prepare($sql)){
             die(var_dump($this->con->error_list));
         }
@@ -118,7 +118,7 @@ class access{
 
     public function checkMagicLink($magic){
         $sql = "DELETE FROM magic_links WHERE timestamp<DATE_SUB(NOW(), INTERVAL 60 MINUTE)";
-        $this->sql->deleteQuery($sql, null, null);
+        $this->sql->deleteQuery($sql);
         $sql = "SELECT * FROM magic_links WHERE magic = ?";
         $result = $this->sql->selectQuery($sql, 's', $magic);
         if(empty($result)){
