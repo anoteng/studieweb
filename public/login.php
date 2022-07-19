@@ -126,7 +126,7 @@ class access{
             $plopenr = $result[0]['plopenr'];
             $sql = "SELECT login_token FROM users WHERE plopenr = ?";
             $result = $this->sql->selectQuery($sql, 'i', $plopenr);
-            return json_encode($result)
+            return json_encode($result);
         }
 
     }
