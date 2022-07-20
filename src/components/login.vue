@@ -1,34 +1,36 @@
 <template >
-  <div class="container" v-if="AskForMagicLink">
-    <form class="form-control">
-      <label> {{ this.$t("login.magic_link") }}
-        <input type="text" v-model="email">
+  <div class="d-inline-flex p-2 bd-highlight" v-if="AskForMagicLink">
+    <form class="row g-3">
+      <label class="form-label"> {{ this.$t("login.magic_link") }}
+        <input type="email" v-model="email">
       </label>
-      <button @click="orderLink">Send</button>
-      <label> {{ this.$t("login.have_token") }}
+
+      <label class="form-check-label"> {{ this.$t("login.have_token") }}
         <input type="checkbox" @input="skipOrder">
       </label>
+      <button @click="orderLink" class="btn btn-secondary">Send</button>
 
     </form>
 
   </div>
-  <div class="container" v-else>
-    <form class="form-control">
-      <label> {{ this.$t("login.token") }}
+  <div class="d-inline-flex p-2 bd-highlight" v-else>
+    <form class="row g-3">
+      <label class="form-label"> {{ this.$t("login.token") }}
         <input type="text"
                v-model="MagicLink"
                >
       </label>
-      <button @click="checkMagicLink">Send</button>
-      <label> {{ this.$t("login.have_token") }}
+
+      <label class="form-check-label"> {{ this.$t("login.have_token") }}
         <input type="checkbox" @input="skipOrder" checked>
       </label>
+      <button @click="checkMagicLink" class="btn btn-secondary">Send</button>
     </form>
   </div>
 </template>
 
 <script>
-import { login } from "../api.js"
+import { login } from "@/api"
 export default {
   name: "LoginComp",
   data() {
