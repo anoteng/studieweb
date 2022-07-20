@@ -61,7 +61,9 @@ export default {
           .then(response => {
             console.log(response)
             this.AccessKey = response[1].login_token
+            localStorage.setItem('AccessKey', this.AccessKey)
             this.checkApiKey(this.AccessKey)
+            this.getSetUserInfo()
           })
 
     },
@@ -74,6 +76,12 @@ export default {
           })
           .catch(err => {
             console.log(err)
+          })
+    },
+    getSetUserInfo(){
+      login.getSetUserInfo(this.AccessKey)
+          .then(data => {
+            console.log(data)
           })
     },
     checkApiKey(key){
