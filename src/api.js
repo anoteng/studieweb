@@ -25,7 +25,7 @@ const login = {
 
     },
     orderMagicLink(email){
-        const promise = new Promise(function (resolve, reject){
+        return new Promise(function (resolve, reject){
             fetch(baseURL + 'login.php?email='+ email)
                 .then(response => response.json())
                 .then(data => {
@@ -33,11 +33,14 @@ const login = {
                 })
                 .catch(err => reject(err))
         })
-        return promise
     },
     getSetUserInfo(key){
         return new Promise(function (resolve, reject){
-          fetch(apiURL + 'records/users?filter=login_token,eq,' + key)
+          fetch(apiURL + 'records/users?filter=login_token,eq,' + key, {
+              headers: {
+                  'X-API-Key': key
+              }
+          })
               .then(data => data.json())
               .then(data => {
                   console.log(data)
