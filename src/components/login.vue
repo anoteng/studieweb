@@ -47,7 +47,12 @@ export default {
   methods: {
     checkLoggedInState(){
       if(localStorage.apikey){
-        login.checkApiKey(localStorage.apikey)
+        const result = login.checkApiKey(localStorage.apikey)
+        if (result.length > 0){
+          return true
+        }else{
+          return false
+        }
       }else{
         return false
       }
@@ -81,7 +86,22 @@ export default {
     getSetUserInfo(){
       login.getSetUserInfo(this.AccessKey)
           .then(data => {
-            console.log(data)
+            const user = data[0]
+            let accessLevel = 0
+            if(user.allow_login){
+              accessLevel = 1
+            }
+            this.$root.userInfo = {
+              plopenr: user.plopenr,
+              last_name: user.last_name,
+              first_name: user.first_name,
+              email: user.email,
+              accessLevel: accessLevel
+            }
+          })
+          .then(() =>{
+            const result = login.checkAdminLevel(this.$root.userInfo.plopenr)
+            console.log(result)
           })
     },
     checkApiKey(key){
