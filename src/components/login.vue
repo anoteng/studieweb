@@ -31,10 +31,13 @@
 
 <script>
 import { login } from "@/api"
+import {userInfo} from "@/userInfo";
+
 export default {
   name: "LoginComp",
   data() {
     return {
+      userInfo,
       loggedInStatus: null,
       userId: null,
       AccessKey: null,
@@ -48,11 +51,7 @@ export default {
     checkLoggedInState(){
       if(localStorage.apikey){
         const result = login.checkApiKey(localStorage.apikey)
-        if (result.length > 0){
-          return true
-        }else{
-          return false
-        }
+        return result.length > 0;
       }else{
         return false
       }
@@ -86,27 +85,45 @@ export default {
     getSetUserInfo(){
       login.getSetUserInfo(this.AccessKey)
           .then(data => {
-            const user = data[0]
+            const user = data.records[0]
             let accessLevel = 0
             if(user.allow_login){
               accessLevel = 1
             }
-            this.$root.userInfo = {
-              plopenr: user.plopenr,
-              last_name: user.last_name,
-              first_name: user.first_name,
-              email: user.email,
-              accessLevel: accessLevel
-            }
+
+            userInfo.set('plopenr', user.plopenr)
+            userInfo.set('last_name', user.last_name)
+            userInfo.set('first_name', user.first_name)
+            userInfo.set('email', user.email)
+            userInfo.set('accessLevel', accessLevel)
+            userInfo.set('accessToken', this.accessKey)
+
           })
           .then(() =>{
-            const result = login.checkAdminLevel(this.$root.userInfo.plopenr)
-            console.log(result)
+            login.checkAdminLevel(userInfo.plopenr, userInfo.accessToken)
+                .then(result => {
+                  userInfo.set('accessInfo', result)
+                  if(result.departmentAdmin.length>0){
+                    userInfo.set('accessLevel', 2)
+                  }
+                  if(result.facultyAdmin){
+                    userInfo.set('accessLevel', 3)
+                  }
+                  if(result.superAdmin){
+                    userInfo.set('accessLevel', 4)
+                  }
+                  console.log(result)
+                })
           })
     },
     checkApiKey(key){
-      console.log(key)
       login.checkApiKey(key)
+          .then(() => {
+            return true
+          })
+          .catch(err => {
+            console.log(err)
+          })
     }
   }
 }

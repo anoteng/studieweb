@@ -12,7 +12,8 @@ const messages = {
         nav: {
             menu: "Menu",
             userinfo: "User information",
-            allCourses: "All courses"
+            allCourses: "All courses",
+            home: "Home"
         }
     },
     no: {
@@ -28,7 +29,8 @@ const messages = {
         nav: {
             menu: "Meny",
             userinfo: "Brukerinfo",
-            allCourses: "Vis alle emner"
+            allCourses: "Vis alle emner",
+            home: "Hjem"
         }
 
     }

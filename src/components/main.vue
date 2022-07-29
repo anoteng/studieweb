@@ -7,7 +7,7 @@
     <p class="lead">A offcanvas "push" vertical nav menu example.</p>
     <hr>
     <div class="row">
-      <div class="container" v-if="checkLoggedInState()">
+      <div class="container" v-if="this.loggedIn">
         {{ this.$t("message.hello") }}
 
       </div>
@@ -24,16 +24,29 @@ import LoginComp from "./login"
 export default {
   name: "MainView",
   components: {LoginComp},
+  data() {
+    return{
+      loggedIn: false
+    }
+  },
   methods: {
     checkLoggedInState(){
-      if(localStorage.apikey){
-        login.checkApiKey(localStorage.apikey)
+      if(localStorage.AccessKey){
+        login.checkApiKey(localStorage.AccessKey)
+            .then(result => {
+              console.log(result)
+              this.loggedIn = true
+            })
       }else{
         return false
       }
     }
+  },
+  created() {
+    this.checkLoggedInState()
   }
 }
+
 </script>
 
 <style scoped>
